@@ -1,0 +1,15 @@
+composer create-project laravel/laravel example-app // laravel new example-app 
+
+php artisan serve
+
+php artisan make:controller TestController
+
+php artisan config:clear
+
+composer require rcrowe/twigbridge
+
+php artisan vendor:publish --provider="TwigBridge\ServiceProvider"
+
+composer require barryvdh/laravel-debugbar --dev
+
+php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
