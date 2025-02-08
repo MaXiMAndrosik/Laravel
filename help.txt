@@ -1,11 +1,5 @@
 composer create-project laravel/laravel example-app // laravel new example-app 
 
-php artisan serve
-
-php artisan make:controller TestController
-
-php artisan config:clear
-
 composer require rcrowe/twigbridge
 
 php artisan vendor:publish --provider="TwigBridge\ServiceProvider"
@@ -13,3 +7,26 @@ php artisan vendor:publish --provider="TwigBridge\ServiceProvider"
 composer require barryvdh/laravel-debugbar --dev
 
 php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+
+php artisan serve
+
+php artisan make:controller TestController
+
+php artisan config:clear
+
+php artisan make:model TestModel
+
+php artisan make:migration create_employee_table
+
+php artisan migrate
+php artisan migrate -- force
+
+php artisan migrate:status
+
+php artisan migrate:rollback // откат миграции 
+
+php artisan migrate:rollback --step=5 // откат определенного числа миграции 
+
+php artisan migrate:reset // откатить все миграции 
+
+php artisan make:command TestDatabase
