@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+        return view('welcome');
 });
 
 Route::get('/test', \App\Http\Controllers\TestController::class);
@@ -35,7 +35,7 @@ Route::get('/upload', [\App\Http\Controllers\FileUploadController::class, 'index
 Route::post('/upload', [\App\Http\Controllers\FileUploadController::class, 'upload'])->name('upload-file');
 
 Route::get('/library_user/{id}', [\App\Http\Controllers\LibraryUserController::class, 'showUser'])
-        ->where(['id' => '[0-2]+']);  
+        ->where(['id' => '[0-2]+']);
 
 Route::get('/my_user', [\App\Http\Controllers\MyUserController::class, 'showUser']);
 
@@ -43,5 +43,19 @@ Route::get('/redirect_test', \App\Http\Controllers\TestRedirectController::class
 
 Route::get('/send_file', \App\Http\Controllers\SendFileController::class);
 
+Route::get('/main', function () {
+        return view('mainpage');
+});
 
+Route::get('/about', function () {
+        return view('about');
+});
 
+Route::get('/users_list', function () {
+        $users = ['Ivan', 'Petr', 'Vasily', 'Nikolay'];
+        return view('users_list', ['usersList' => $users]);
+});
+
+Route::get('/uppertest', function () {
+        return view('testdir');
+});

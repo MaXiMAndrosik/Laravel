@@ -31,6 +31,9 @@ php artisan migrate:reset // откатить все миграции
 
 php artisan make:command TestDatabase
 
+php artisan make:component Header
+
+php artisan make:provider RiakServiceProvider
 
 git branch homework3
 
