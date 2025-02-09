@@ -30,3 +30,8 @@ php artisan migrate:rollback --step=5 // откат определенного �
 php artisan migrate:reset // откатить все миграции 
 
 php artisan make:command TestDatabase
+
+
+git branch homework3
+
+git checkout homework3
