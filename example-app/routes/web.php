@@ -59,3 +59,19 @@ Route::get('/users_list', function () {
 Route::get('/uppertest', function () {
         return view('testdir');
 });
+
+// Урок 5
+Route::get('/test_parametrs', [\App\Http\Controllers\RequestTestController::class, 'testRequest']);
+
+Route::get('/test_header', [\App\Http\Controllers\TestHeaderController::class, 'getHeader']);
+
+Route::get('/test_cookie', [\App\Http\Controllers\TestCookieController::class, 'testCookie']);
+
+Route::get('/upload_file', [\App\Http\Controllers\FileUploadController::class, 'showForm'])->name('showForm');
+Route::post('/upload_file', [\App\Http\Controllers\FileUploadController::class, 'fileUpload'])->name('fileUpload');
+
+Route::post('/json_parse', [\App\Http\Controllers\JsonParseController::class, 'parseJson']);
+
+// Урок 6
+Route::get('/form', [\App\Http\Controllers\TestFormController::class, 'displayForm'])->name('show_form');
+Route::post('/form', [\App\Http\Controllers\TestFormController::class, 'postForm'])->name('post_form');

@@ -41,4 +41,33 @@ class FileUploadController extends Controller
         // var_dump($request->header());
         
     }
+
+    public function showForm() {
+
+        return view('upload-form');
+
+    }
+
+    public function fileUpload(Request $request) {
+
+        if ($request->hasFile('uploaded_file')) {
+            $file = $request->file('uploaded_file');
+            echo $file->path() . '<br>';
+            echo $file->getClientOriginalName() . '<br>';
+            echo $file->getClientOriginalExtension() . '<br>';
+            $file->storeAs('images', $file->getClientOriginalName());
+        } else {
+            echo 'No file uploaded';
+        }
+        if ($request->hasFile('uploaded_files')) {
+            foreach ($request->uploaded_files as $uploaded) {
+                var_dump($uploaded);
+            }
+        }
+
+
+
+        
+    }
+
 }

@@ -23,7 +23,8 @@
                 <tbody>
                     @foreach($users as $user) 
                     <tr>
-                        <th scope="row">{{ $user->first_name }}</th>
+                        <th ></th>
+                        <td scope="row">{{ $user->first_name }}</td>
                         <td>{{ $user->last_name }}</td>
                         <td>{{ $user->email }}</td>
                     </tr>

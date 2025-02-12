@@ -10,7 +10,7 @@
 <body>
 
     @php
-    $name = 'maxim';
+        $name = 'maxim';
     @endphp
 
     @headerUpperCase($name)
