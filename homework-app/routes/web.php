@@ -32,3 +32,7 @@ Route::get('/contacts', function () {
     ];
     return view('contacts', ['contacts' => $contact]);
 });
+
+Route::get('/get-employee-data', [App\Http\Controllers\EmployeeController::class, 'newIndex']);
+Route::post('/store-form', [App\Http\Controllers\EmployeeController::class, 'store'])->name('store_employee-data');
+Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'update'])->name('update_employee-data');
