@@ -36,3 +36,6 @@ Route::get('/contacts', function () {
 Route::get('/get-employee-data', [App\Http\Controllers\EmployeeController::class, 'newIndex']);
 Route::post('/store-form', [App\Http\Controllers\EmployeeController::class, 'store'])->name('store_employee-data');
 Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'update'])->name('update_employee-data');
+
+Route::get('/index{id?}', [App\Http\Controllers\BookController::class, 'index'])->name('book-form');
+Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('store-book');
