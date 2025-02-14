@@ -75,3 +75,15 @@ Route::post('/json_parse', [\App\Http\Controllers\JsonParseController::class, 'p
 // Урок 6
 Route::get('/form', [\App\Http\Controllers\TestFormController::class, 'displayForm'])->name('show_form');
 Route::post('/form', [\App\Http\Controllers\TestFormController::class, 'postForm'])->name('post_form');
+
+Route::get('/employee{id?}', [\App\Http\Controllers\EmployeeController::class, 'show'])->name('show-employee');
+Route::post('/employee', [\App\Http\Controllers\EmployeeController::class, 'store'])->name('store-employee');
+
+Route::get('/security_test', [\App\Http\Controllers\TestSecurityController::class, 'show']);
+Route::post('/security_test', [\App\Http\Controllers\TestSecurityController::class, 'post'])->name('show-security');
+
+Route::get('/test_validation', [\App\Http\Controllers\TestValidationController::class, 'show']);
+Route::post('/test_validation', [\App\Http\Controllers\TestValidationController::class, 'post'])->name('post-validation');
+
+Route::get('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'show']);
+Route::post('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'post'])->name('post-form');
