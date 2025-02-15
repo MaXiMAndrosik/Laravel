@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [
             '/json_parse',
+            '/list_of_books',
+            '/list_of_books/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

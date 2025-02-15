@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,3 +89,87 @@ Route::post('/test_validation', [\App\Http\Controllers\TestValidationController:
 
 Route::get('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'show']);
 Route::post('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'post'])->name('post-form');
+
+Route::get('/test_url', function(){
+        // return 'TestUrl';
+        // $response = new Response('Test content', 200);
+        // $response = new Response(null, 403);
+        // $response = new Response(null, 200);
+        // return $response;
+        // return response('New Test Url', 200)
+        // ->header('X-header', 'Hello World')
+        // ->header('Content Type', 'application/json');
+        // return redirect('/test_builder');
+        // return redirect(null, 301)->route('show_form');
+        return redirect(null, 301)->away('http://google.com');
+});
+
+Route::get('/test_cookie', function(){
+        // return response('TestCookie')
+        // ->cookie('my_test_cookie', 'test_cookie', 5)
+        // ->withHeaders([
+        //         'X-header1'=> 'Hello ',
+        //         'X-header2'=> 'World ',
+        //         'X-header3'=> 'Hello World ',
+        // ]);
+        return response('TestCookie')
+        ->withoutCookie('my_test_cookie');
+
+
+});
+
+Route::get('/counter', function(){
+        $counter = session('counter', 0);
+        session(['counter' => $counter + 1]);
+        return response('Counter: '. session('counter'));
+});
+
+Route::get('/result_counter', function(){
+        // return session('counter');
+        if (session()->has('counter')) {
+                session()->forget('counter');
+        }
+        echo '<pre>';
+        var_dump(session()->all());
+});
+
+Route::get('/list_of_books', function(){
+        $listOfBooks = session()->get('listOfBooks', '');
+        return response()->json(['status' => 'received', 'listOfBooks' => $listOfBooks ? unserialize($listOfBooks) : 'The list is empty']);
+});
+
+Route::post('/list_of_books', function(Request $request){
+
+        $listOfBooks = session()->get('listOfBooks', '');
+        $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
+        $listOfBooks[] = ['author' => $request->get('author'), 'title' => $request->get('title')];
+        session()->put('listOfBooks', serialize($listOfBooks));
+        return response()->json(['status' => 'saved', 'listOfBooks' => $listOfBooks]);
+});
+
+Route::delete('/list_of_books/{id}', function($id){
+
+        $listOfBooks = session()->get('listOfBooks', '');
+        $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
+        if (array_key_exists($id, $listOfBooks)) {
+                unset($listOfBooks[$id]);
+        }
+        session()->put('listOfBooks', serialize($listOfBooks));
+        return response()->json(['status' => 'deleted', 'listOfBooks' => $listOfBooks]);
+});
+
+Route::get('/file_download', function() {
+
+        // return response()->download(base_path() . '/public/uploads/text.txt', 'my_test');
+        return response()->download(base_path() . '/public/uploads/pdp-test.pdf', 'my_test.pdf');
+});
+Route::get('/file_show', function() {
+        // return response()->file(base_path() . '/public/uploads/text.txt');
+        return response()->file(base_path() . '/public/uploads/pdp-test.pdf');
+});
+Route::get('/file_stream', function() {
+        return response()->streamDownload(function() {
+                echo file_get_contents('http://google.com');
+        }, 'my_test.html');
+        // return response()->streamDownload(base_path() . '/public/uploads/pdp-test.pdf');
+});
