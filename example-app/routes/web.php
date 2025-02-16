@@ -173,3 +173,6 @@ Route::get('/file_stream', function() {
         }, 'my_test.html');
         // return response()->streamDownload(base_path() . '/public/uploads/pdp-test.pdf');
 });
+
+Route::get('/check_di', [\App\Http\Controllers\TestDiController::class, 'showUrl']);
+Route::get('/send_sms', [\App\Http\Controllers\TestDiController::class, 'sendSms']);
