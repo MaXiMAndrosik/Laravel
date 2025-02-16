@@ -39,3 +39,9 @@ Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'updat
 
 Route::get('/index{id?}', [App\Http\Controllers\BookController::class, 'index'])->name('book-form');
 Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('store-book');
+
+Route::get('/users', [App\Http\Controllers\NewUserController::class, 'index'])->name('get-users');
+Route::get('/user/{id}', [App\Http\Controllers\NewUserController::class, 'getUser'])->name('get-user');
+Route::get('/store-user', [App\Http\Controllers\NewUserController::class, 'createUser']);
+Route::post('/store-user', [App\Http\Controllers\NewUserController::class, 'storeUser'])->name('store-user');
+Route::get('/resume/{id}', [App\Http\Controllers\PdfGeneratorController::class, 'index']);
