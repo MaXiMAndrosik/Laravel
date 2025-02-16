@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FormProcessor;
 use Illuminate\Support\Facades\Route;
+use App\Models\News;
+use App\Events\NewsHidden;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -39,3 +41,28 @@ Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'updat
 
 Route::get('/index{id?}', [App\Http\Controllers\BookController::class, 'index'])->name('book-form');
 Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('store-book');
+
+Route::get('/news/create-test', function () {
+
+    $news = new News();
+
+    $news->title = 'Test news title';
+    $news->body = 'Test news body';
+
+    $news->save();
+
+    return $news;
+
+});
+
+Route::get('/news/{id}/hide', function ($id) {
+
+    $news = News::findOrFail($id);
+    $news->hidden = true;
+    $news->save();
+
+    NewsHidden::dispatch($news);
+
+    return 'News hidden';
+
+});
