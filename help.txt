@@ -37,6 +37,8 @@ php artisan make:provider RiakServiceProvider
 
 php artisan make:form Forms/EmployeeForm --fields="first_name:text, last_name:text, personal_data_agreement:checkbox"
 
+php artisan make:middleware DataLogger
+
 git branch homework3
 
 git checkout homework3

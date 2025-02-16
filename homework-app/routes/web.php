@@ -39,3 +39,7 @@ Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'updat
 
 Route::get('/index{id?}', [App\Http\Controllers\BookController::class, 'index'])->name('book-form');
 Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('store-book');
+
+Route::get('/logs', function() {
+    return view('logs');
+});
