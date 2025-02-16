@@ -15,9 +15,9 @@ use Illuminate\Http\Response;
 |
 */
 
-Route::get('/', function () {
-        return view('welcome');
-});
+// Route::get('/', function () {
+//         return view('welcome');
+// });
 
 Route::get('/test', \App\Http\Controllers\TestController::class);
 
@@ -90,7 +90,7 @@ Route::post('/test_validation', [\App\Http\Controllers\TestValidationController:
 Route::get('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'show']);
 Route::post('/test_builder', [\App\Http\Controllers\FormBuilderTestController::class, 'post'])->name('post-form');
 
-Route::get('/test_url', function(){
+Route::get('/test_url', function () {
         // return 'TestUrl';
         // $response = new Response('Test content', 200);
         // $response = new Response(null, 403);
@@ -104,7 +104,7 @@ Route::get('/test_url', function(){
         return redirect(null, 301)->away('http://google.com');
 });
 
-Route::get('/test_cookie', function(){
+Route::get('/test_cookie', function () {
         // return response('TestCookie')
         // ->cookie('my_test_cookie', 'test_cookie', 5)
         // ->withHeaders([
@@ -113,18 +113,16 @@ Route::get('/test_cookie', function(){
         //         'X-header3'=> 'Hello World ',
         // ]);
         return response('TestCookie')
-        ->withoutCookie('my_test_cookie');
-
-
+                ->withoutCookie('my_test_cookie');
 });
 
-Route::get('/counter', function(){
+Route::get('/counter', function () {
         $counter = session('counter', 0);
         session(['counter' => $counter + 1]);
-        return response('Counter: '. session('counter'));
+        return response('Counter: ' . session('counter'));
 });
 
-Route::get('/result_counter', function(){
+Route::get('/result_counter', function () {
         // return session('counter');
         if (session()->has('counter')) {
                 session()->forget('counter');
@@ -133,12 +131,12 @@ Route::get('/result_counter', function(){
         var_dump(session()->all());
 });
 
-Route::get('/list_of_books', function(){
+Route::get('/list_of_books', function () {
         $listOfBooks = session()->get('listOfBooks', '');
         return response()->json(['status' => 'received', 'listOfBooks' => $listOfBooks ? unserialize($listOfBooks) : 'The list is empty']);
 });
 
-Route::post('/list_of_books', function(Request $request){
+Route::post('/list_of_books', function (Request $request) {
 
         $listOfBooks = session()->get('listOfBooks', '');
         $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
@@ -147,7 +145,7 @@ Route::post('/list_of_books', function(Request $request){
         return response()->json(['status' => 'saved', 'listOfBooks' => $listOfBooks]);
 });
 
-Route::delete('/list_of_books/{id}', function($id){
+Route::delete('/list_of_books/{id}', function ($id) {
 
         $listOfBooks = session()->get('listOfBooks', '');
         $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
@@ -158,17 +156,17 @@ Route::delete('/list_of_books/{id}', function($id){
         return response()->json(['status' => 'deleted', 'listOfBooks' => $listOfBooks]);
 });
 
-Route::get('/file_download', function() {
+Route::get('/file_download', function () {
 
         // return response()->download(base_path() . '/public/uploads/text.txt', 'my_test');
         return response()->download(base_path() . '/public/uploads/pdp-test.pdf', 'my_test.pdf');
 });
-Route::get('/file_show', function() {
+Route::get('/file_show', function () {
         // return response()->file(base_path() . '/public/uploads/text.txt');
         return response()->file(base_path() . '/public/uploads/pdp-test.pdf');
 });
-Route::get('/file_stream', function() {
-        return response()->streamDownload(function() {
+Route::get('/file_stream', function () {
+        return response()->streamDownload(function () {
                 echo file_get_contents('http://google.com');
         }, 'my_test.html');
         // return response()->streamDownload(base_path() . '/public/uploads/pdp-test.pdf');
@@ -176,3 +174,16 @@ Route::get('/file_stream', function() {
 
 Route::get('/check_di', [\App\Http\Controllers\TestDiController::class, 'showUrl']);
 Route::get('/send_sms', [\App\Http\Controllers\TestDiController::class, 'sendSms']);
+
+Route::get('/', function () {
+        \App\Events\NewsCreated::dispatch(\App\Models\News::first());
+        return view('welcome');
+});
+
+Route::get('/news-update-test', function () {
+        // \App\Models\News::withoutEvents(function () {
+        //         \App\Models\News::first()->update(['title' => 'TEST']);
+        // });
+        \App\Models\News::first()->update(['title' => 'test']);
+        return view('welcome');
+});

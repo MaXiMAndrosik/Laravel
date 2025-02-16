@@ -37,6 +37,14 @@ php artisan make:provider RiakServiceProvider
 
 php artisan make:form Forms/EmployeeForm --fields="first_name:text, last_name:text, personal_data_agreement:checkbox"
 
+php artisan make:event NewsCreated
+
+php artisan make:listener SendNewsCreatedNotification --event="NewsCreated"
+
+php artisan event:list // просмотр всех событий в фреймоврке
+
+php artisan make:observer NewsObserver --model=News
+
 git branch homework3
 
 git checkout homework3
