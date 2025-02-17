@@ -45,6 +45,24 @@ php artisan event:list // просмотр всех событий в фрейм
 
 php artisan make:observer NewsObserver --model=News
 
+php artisan make:job SyncNews
+
+php artisan queue:listen
+
+php artisan schedule:list // просмотр всех расписаний задач
+
+php artisan schedule:run // разовый запуск планировщика задач
+
+php artisan schedule:work // запуск планировщика задач
+
+php artisan lang:publish
+
+php artisan notification:table
+
+php artisan make:notification InvoicePaid
+
 git branch homework3
 
 git checkout homework3
+
+git reset HEAD~ 
