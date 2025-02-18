@@ -17,6 +17,4 @@ Schedule::command('app:dump-database')->everyMinute();
 
 Schedule::job(new App\Jobs\SyncNews(10))->everyMinute();
 
-echo __DIR__;
-
 Schedule::exec("New-Item -Path '" . __DIR__ . "\\file.log' -ItemType File")->everyMinute();

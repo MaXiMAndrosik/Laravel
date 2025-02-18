@@ -7,8 +7,9 @@ use Illuminate\Foundation\AliasLoader;
 use App\Services\SmsServiceInterface;
 use App\Services\SmsSenderService;
 use App\Models\News;
+use App\Models\User;
 use App\Observers\NewsObserver;
-
+use \Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
         $this->app->bind(SmsServiceInterface::class, function() {
             return new SmsSenderService('q346567', 'afdhgvg');
         });
@@ -28,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void {
         News::observe(NewsObserver::class);
+        Gate::define('view-users', function(User $user) {
+            return $user->isAdmin();
+        });
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
@@ -15,11 +16,9 @@ use App\Models\User;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 // Route::get('/', function () {
 //         return view('welcome');
 // });
-
 Route::get('/test', \App\Http\Controllers\TestController::class);
 
 Route::get('/users', [\App\Http\Controllers\UserController::class, 'showUsers']);
@@ -219,7 +218,7 @@ Route::get('/user/{user}/change-email', function (User $user, Request $request) 
         $oldEmail = $user->email;
         $user->email = $request->input('email');
         $user->save();
-        $user->notify( new App\Notifications\UserEmailChangedNitification($oldEmail));
+        $user->notify( new App\Notifications\UserEmailChangedNotification($oldEmail));
 
         return response(['result' => 'email changed']);
 });
@@ -227,3 +226,24 @@ Route::get('/user/{user}/change-email', function (User $user, Request $request) 
 Route::get('/user/{user}/notification', function (User $user) {
         return $user->notifications;
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+Route::middleware('log-request')->group(function () {
+    Route::get('/log-ip', function () {
+        return response()->json(['status'   => 'success']);
+    });
+});
+
+Route::get('/users_auth', [\App\Http\Controllers\UsersController::class, 'index']);
+Route::get('/users_auth/{user}', [\App\Http\Controllers\UsersController::class, 'show']);
