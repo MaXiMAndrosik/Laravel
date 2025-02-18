@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormProcessor;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/userform', [App\Http\Controllers\FormProcessor::class, 'index']);
 
@@ -14,15 +15,15 @@ Route::post('/store_form', [App\Http\Controllers\FormProcessor::class, 'store'])
 Route::get('/test_database', [App\Http\Controllers\EmployeeController::class, 'index']);
 Route::post('/test_database', [App\Http\Controllers\EmployeeController::class, 'storeEmployee'])->name('store_employee');
 
-Route::get('/', function () {
-    $users = [
-        ['name' => 'Ivan', 'age' => 40, 'position' => 'Belarus', 'address' => '123 Main Street'],
-        ['name' => 'Petr', 'age' => 15, 'position' => 'Russia', 'address' => '234 Nomain Street'],
-        ['name' => 'Vasily', 'age' => 36, 'position' => 'Estonia', 'address' => '345 Second Street'],
-        ['name' => 'Denis', 'age' => 34, 'position' => 'Latvia', 'address' => '456 Nosecond Street'],
-    ];
-    return view('home', ['users' => $users]);
-});
+// Route::get('/', function () {
+//     $users = [
+//         ['name' => 'Ivan', 'age' => 40, 'position' => 'Belarus', 'address' => '123 Main Street'],
+//         ['name' => 'Petr', 'age' => 15, 'position' => 'Russia', 'address' => '234 Nomain Street'],
+//         ['name' => 'Vasily', 'age' => 36, 'position' => 'Estonia', 'address' => '345 Second Street'],
+//         ['name' => 'Denis', 'age' => 34, 'position' => 'Latvia', 'address' => '456 Nosecond Street'],
+//     ];
+//     return view('home', ['users' => $users]);
+// });
 Route::get('/contacts', function () {
     $contact = [
         ['address' => '123 Main Street', 'post_code' => '123456', 'email' => 'mail.gmail.com', 'phone' => '79998887766'],
@@ -39,3 +40,17 @@ Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'updat
 
 Route::get('/index{id?}', [App\Http\Controllers\BookController::class, 'index'])->name('book-form');
 Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('store-book');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+Route::get('/users', [\App\Http\Controllers\UsersController::class, 'index']);
