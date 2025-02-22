@@ -1,80 +1,98 @@
 composer create-project laravel/laravel example-app // laravel new example-app 
 
 composer require rcrowe/twigbridge
-
 php artisan vendor:publish --provider="TwigBridge\ServiceProvider"
 
 composer require barryvdh/laravel-debugbar --dev
-
 php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 
+php artisan config:clear
 php artisan serve
+
+
+php artisan list make
+php artisan install:api
+
 
 php artisan make:controller TestController
 
-php artisan config:clear
 
-php artisan make:model TestModel -m // флаг для сщздания миграции
+php artisan make:model TestModel -m // флаг для создания миграции
+
 
 php artisan make:migration create_employee_table
-
 php artisan make:migration update_users_adds_role_id --table=users
-
 php artisan migrate
 php artisan migrate -- force
-
 php artisan migrate:status
-
 php artisan migrate:rollback // откат миграции 
-
 php artisan migrate:rollback --step=5 // откат определенного числа миграции 
-
 php artisan migrate:reset // откатить все миграции 
+
 
 php artisan make:command TestDatabase
 
+
 php artisan make:component Header
+
 
 php artisan make:provider RiakServiceProvider
 
+
 php artisan make:form Forms/EmployeeForm --fields="first_name:text, last_name:text, personal_data_agreement:checkbox"
 
+
 php artisan make:event NewsCreated
+php artisan event:list // просмотр всех событий в фреймоврке
+
 
 php artisan make:listener SendNewsCreatedNotification --event="NewsCreated"
 
-php artisan event:list // просмотр всех событий в фреймоврке
 
 php artisan make:observer NewsObserver --model=News
 
+
 php artisan make:job SyncNews
+
 
 php artisan queue:listen
 
+
 php artisan schedule:list // просмотр всех расписаний задач
-
 php artisan schedule:run // разовый запуск планировщика задач
-
 php artisan schedule:work // запуск планировщика задач
+
 
 php artisan lang:publish
 
-php artisan notification:table
 
+php artisan notification:table
 php artisan make:notification InvoicePaid
 
-composer require laravel/breeze //пакет для создания аутентификации и авторизации пользователей
 
+composer require laravel/breeze //пакет для создания аутентификации и авторизации пользователей
 php artisan breeze:install
+
 
 php artisan make:middleware LogRequestMiddleware
 
+
 php artisan make:policy UserPolicy --model=User
+
 
 php artisan make:mail BookingCompletedMailing
 
+
+// заполнение тестовых баз данных 
+php artisan make:seeder HotelSeeder
+php artisan make:factory HotelFactory
+php artisan db:seed
+php artisan db:seed --class=HotelSeeder
+
+
+php artisan make:test Hotels/HotelsTest
+
+
 git branch homework3
-
 git checkout homework3
-
 git reset HEAD~ 

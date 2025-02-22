@@ -22,6 +22,8 @@ class User extends Authenticatable {
         'password',
     ];
 
+    protected $with = ['hotels'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -57,4 +59,11 @@ class User extends Authenticatable {
         return $this->belongsTo(Role::class);
 
     }
+
+    public function hotels() {
+
+        return $this->hasMany(Hotel::class);
+        
+    }
+
 }
