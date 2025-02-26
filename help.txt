@@ -6,6 +6,16 @@ php artisan vendor:publish --provider="TwigBridge\ServiceProvider"
 composer require barryvdh/laravel-debugbar --dev
 php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 
+//пакет для создания аутентификации и авторизации пользователей
+composer require laravel/breeze 
+php artisan breeze:install
+
+// Создание администраторской панели
+composer require tcg/voyager // laravel 9.0!!!!!!!
+php artisan voyager:install
+php artisan voyager:admin maxim@mail.com --create
+
+
 php artisan config:clear
 php artisan serve
 
@@ -70,8 +80,7 @@ php artisan notification:table
 php artisan make:notification InvoicePaid
 
 
-composer require laravel/breeze //пакет для создания аутентификации и авторизации пользователей
-php artisan breeze:install
+
 
 
 php artisan make:middleware LogRequestMiddleware
