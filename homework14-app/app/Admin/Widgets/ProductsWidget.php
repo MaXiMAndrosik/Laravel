@@ -19,8 +19,8 @@ class ProductsWidget extends AbstractWidget {
             'text'  => "Количество продуктов: {$count}",
             'button' => [
                 'text' => 'Перейти к списку продуктов',
-                'link' => '',
-                // 'link'  => route('voyager.product.index'),
+                // 'link' => '',
+                'link'  => route('voyager.products.index'),
             ],
             'image' => './storage/products.jpg',
         ]));

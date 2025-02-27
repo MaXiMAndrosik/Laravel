@@ -19,8 +19,8 @@ class CategoriesWidget extends AbstractWidget {
             'text'  => "Количество категорий: {$count}",
             'button' => [
                 'text' => 'Перейти к категориям',
-                'link' => '',
-                // 'link'  => route('voyager.categories.index'),
+                // 'link' => '',
+                'link'  => route('voyager.categories.index'),
             ],
             'image' => './storage/category.jpg',
         ]));
