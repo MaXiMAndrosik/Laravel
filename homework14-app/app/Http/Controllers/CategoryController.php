@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller {
     
-    // public function index() {
-    //     return Category::paginate(15);
-    // }
+    public function index() {
+        return Category::paginate(15);
+    }
 }

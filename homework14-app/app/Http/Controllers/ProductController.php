@@ -10,7 +10,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-        // return Product::paginate(15);
-        return view('voyager::profile');
+        return Product::paginate(15);
     }
 }
